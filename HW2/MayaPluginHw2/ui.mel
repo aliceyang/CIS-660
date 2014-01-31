@@ -1,3 +1,10 @@
+// Alice Yang
+// CIS 660 Homework 2
+// This is the GUI code for the LSystem maya plug-in
+
+// git commit -m "commit message" -a
+// git push origin master
+
 global proc createLSystemUI()
 {
     // Set to false when ready to release
