@@ -7,6 +7,16 @@
 
 global proc createLSystemUI()
 {
+    global string $gMainWindow;
+    setParent $gMainWindow;
+        menu -label "LSystem";
+            menuItem -label "Call LSystem Command" -command displayLSystemDialog;
+            menuItem -divider true;
+            menuItem -label "Create LSystem Node" -command sphere;         
+}
+
+global proc displayLSystemDialog()
+{
     // Set to false when ready to release
     int $developing = true;
     if ($developing && `window -exists myWindow`)
