@@ -53,6 +53,11 @@ MStatus LSystemCmd::doIt( const MArgList& args )
 		argData.getFlagArgument( iterationsFlag, 0, iterations);
 
 
+	cout<<"stepSize "<< stepSize <<endl;
+	cout<<"angle " << angle<<endl;
+	cout<<"iterations " << iterations<<endl;
+	cout<<"grammar " << grammar<<endl;
+
 
 	MGlobal::displayInfo("Implement Me!");	
 	MGlobal::executeCommand("curve -d 1 -p 0 0 0 -p 0 1 0 -k 0 -k 1 -name curve1");
