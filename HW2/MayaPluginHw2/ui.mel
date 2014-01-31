@@ -1,0 +1,48 @@
+global proc createLSystemUI()
+{
+    // Set to false when ready to release
+    int $developing = true;
+    if ($developing && `window -exists myWindow`)
+        deleteUI myWindow;
+    if (!`window -exists myWindow`)
+        window -widthHeight 500 300 -title "Call LSystem Command" myWindow;
+    
+    columnLayout -adjustableColumn true;          
+        string $formBrowse = `formLayout -numberOfDivisions 100`;
+            string $bBrowse = `button -command openFileDialog -label "Browse..."`;
+            string $tBrowse = `text -font boldLabelFont -label "Browse for grammar files"`;
+            formLayout -edit
+                -attachForm $tBrowse "left" 0
+                -attachForm $bBrowse "right" 0
+                $formBrowse;
+            setParent ..;
+        scrollField -wordWrap off -height 150;
+        setParent ..;
+        
+    frameLayout -label "LSystem Parameters";
+    intSliderGrp -label "Iterations" -field true iterations;
+    floatSliderGrp -label "Default step size" -field true stepSize;
+    floatSliderGrp -label "Default angle" -field true angle;
+    setParent ..;
+    
+    string $formConfirm = `formLayout -numberOfDivisions 100`;
+    string $bCreate = `button -label "Create"`;
+    string $bCancel = `button -label "Cancel"`;
+    formLayout -edit
+        -attachForm $bCreate "left" 0
+        -attachForm $bCancel "right" 0
+        $formConfirm;
+    
+    showWindow myWindow;
+}
+
+global proc openFileDialog()
+{
+    fileDialog -directoryMask "*.txt";
+}
+
+global proc deleteLSystemUI()
+{
+    if (`window -exists myWindow`)
+        deleteUI myWindow;
+}
