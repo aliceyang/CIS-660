@@ -56,7 +56,7 @@ MStatus LSystemCmd::doIt( const MArgList& args )
 	cout<<"stepSize "<< stepSize <<endl;
 	cout<<"angle " << angle<<endl;
 	cout<<"iterations " << iterations<<endl;
-	cout<<"grammar " << grammar<<endl;
+	cout<<"grammar " << grammar.asChar()<<endl;
 
 
 	MGlobal::displayInfo("Implement Me!");	
