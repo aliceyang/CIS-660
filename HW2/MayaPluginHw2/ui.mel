@@ -3,9 +3,9 @@
 // This is the GUI code for the LSystem maya plug-in
 
 // git status -uno (--untracked-files=no)
-// git commit -m "commit message" -a
-// git push origin master
-// git log origin/master..HEAD
+// git commit -m "commit message" -a // commit with auto staging
+// git push origin master // Push commits to remote repo
+// git log origin/master..HEAD // To show commits that have not been pushed to remote repo
 
 
 //------------------------------------------------------------
