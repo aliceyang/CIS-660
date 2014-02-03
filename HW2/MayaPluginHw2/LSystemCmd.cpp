@@ -4,7 +4,10 @@
 #include <maya/MGlobal.h>
 #include <maya/MSyntax.h>
 #include <maya/MArgDatabase.h>
+#include "LSystem.h"
+#include "vec.h"
 #include <list>
+#include <sstream>
 
 
 const char *stepSizeFlag = "-ss", *stepSizeLongFlag = "-stepsize";
@@ -53,18 +56,47 @@ MStatus LSystemCmd::doIt( const MArgList& args )
 		argData.getFlagArgument( iterationsFlag, 0, iterations);
 
 
-	cout<<"stepSize "<< stepSize <<endl;
-	cout<<"angle " << angle<<endl;
-	cout<<"iterations " << iterations<<endl;
-	cout<<"grammar " << grammar.asChar()<<endl;
+	cout << "stepSize "<< stepSize << endl;
+	cout << "angle " << angle << endl;
+	cout << "iterations " << iterations << endl;
+	cout << "grammar " << grammar.asChar() << endl;
 
+	// Run the included L-System implementation
+	LSystem system;
+	system.loadProgramFromString(grammar.asChar());
+	system.setDefaultAngle(angle);
+	system.setDefaultStep(stepSize);
+	std::vector<LSystem::Branch> branches;
 
-	MGlobal::displayInfo("Implement Me!");	
-	MGlobal::executeCommand("curve -d 1 -p 0 0 0 -p 0 1 0 -k 0 -k 1 -name curve1");
-	MGlobal::executeCommand("circle -r 1 -nr 0 1 0 -name nurbsCircle1");
-	MGlobal::executeCommand("select -r nurbsCircle1 curve1");
-	MGlobal::executeCommand("extrude -ch true -rn false -po 1 -et 2 -fpt 1 -upn 1 -rotation 0 - scale 1 -rsp 1 nurbsCircle1 curve1");
+	for (int i = 0; i < iterations; i++)
+	{
+		std::string insn = system.getIteration(i);
+		cout << insn << endl;
+        system.process(i, branches);
+	}
 
+	// Draw the branches from the final iteration
+	for (int j = 0; j < branches.size(); j++)
+	{
+		vec3 start = branches.at(j).first;
+		vec3 end = branches.at(j).second;
+
+		std::string cmd;
+		std::stringstream ss;
+
+		// Create the branch using a curve. We use the z-value in each branch point as the y-value in Maya because in Maya y is the up-axis.
+		MGlobal::executeCommand("global string $myCurve");
+		ss << "$myCurve = `curve -d 1 -p " << start[0]	<< " " << start[2]	<< " " << start[1]	<< 
+						" -p " << end[0]	<< " " << end[2]	<< " " << end[1]	<<
+						 "-k 0 -k 1`";
+		cmd = ss.str();
+		MString mayaCmd = cmd.c_str();
+
+		MGlobal::executeCommand(mayaCmd);
+		MGlobal::executeCommand("circle -r 0.2 -name nurbsCircle1");
+		MGlobal::executeCommand("select -r nurbsCircle1 curve1");
+		MGlobal::executeCommand("extrude -ch true -rn false -po 1 -et 2 -ucp 1 -fpt 1 -upn 1 -rotation 0 -scale 1 -rsp 1 nurbsCircle1 $myCurve");
+	}	
     return MStatus::kSuccess;
 }
 
