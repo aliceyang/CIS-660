@@ -17,8 +17,6 @@
 
 #include <maya/MIOStream.h>
 
-// TODO: Add Igor's define statements
-
 MStatus returnStatus;
 
 #define McheckErr(stat,msg)			\
@@ -26,6 +24,30 @@ MStatus returnStatus;
 		cerr << msg;				\
 		return MS::kFailure;		\
 	}
+
+// Igor's preprocessors: To use, simply do something like
+// time = unitAttr.create( "time", "tm", MFnUnitAttribute::kTime, 0.0, &returnStatus );
+// McheckErr(returnStatus, "ERROR creating animCube time attribute\n");
+// MAKE_INPUT(unitAttr);
+
+#define MAKE_INPUT(attr) \
+CHECK_MSTATUS(attr.setKeyable(true)); \
+CHECK_MSTATUS(attr.setStorable(true)); \
+CHECK_MSTATUS(attr.setReadable(true)); \
+CHECK_MSTATUS(attr.setWritable(true));
+
+#define MAKE_OUTPUT(attr) \
+CHECK_MSTATUS(attr.setKeyable(false)); \
+CHECK_MSTATUS(attr.setStorable(false)); \
+CHECK_MSTATUS(attr.setReadable(true)); \
+CHECK_MSTATUS(attr.setWritable(false));
+
+#define MAKE_ADDR(attr) \
+CHECK_MSTATUS(attr.setKeyable(false)); \
+CHECK_MSTATUS(attr.setStorable(false)); \
+CHECK_MSTATUS(attr.setReadable(true)); \
+CHECK_MSTATUS(attr.setWritable(false)); \
+CHECK_MSTATUS(attr.setHidden(true));
 
 class LSystemNode : public MPxNode
 {
