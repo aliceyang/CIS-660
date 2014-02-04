@@ -1,6 +1,8 @@
 #define MNoVersionString
 #define MNoPluginEntry
 
+#include "LSystemNode.h"
+
 #include <maya/MFnPlugin.h>
 #include <maya/MTime.h>
 #include <maya/MFnMesh.h>
@@ -14,20 +16,12 @@
 #include <maya/MFnTypedAttribute.h>
 #include <maya/MFnNumericAttribute.h>
 
-#include <maya/MPxNode.h>
 #include <maya/MObject.h>
 #include <maya/MPlug.h>
 #include <maya/MDataBlock.h>
 #include <maya/MFnMeshData.h>
-
 #include <maya/MIOStream.h>
 
-MStatus returnStatus;
-
-// Igor's preprocessors: To use, simply do something like
-// time = unitAttr.create( "time", "tm", MFnUnitAttribute::kTime, 0.0, &returnStatus );
-// McheckErr(returnStatus, "ERROR creating animCube time attribute\n");
-// MAKE_INPUT(unitAttr);
 #define McheckErr(stat,msg)			\
 	if ( MS::kSuccess != stat ) {	\
 		cerr << msg;				\
@@ -53,26 +47,7 @@ CHECK_MSTATUS(attr.setReadable(true)); \
 CHECK_MSTATUS(attr.setWritable(false)); \
 CHECK_MSTATUS(attr.setHidden(true));
 
-class LSystemNode : public MPxNode
-{
-public:
-	LSystemNode() {};
-	virtual ~LSystemNode() {};
-	virtual MStatus compute(const MPlug& plug, MDataBlock& data);
-	static  void*	creator();
-	static  MStatus initialize();
-	
-public:
-	static MTypeId id;
-	static MObject time;
-	static MObject angle;
-	static MObject stepSize;
-	static MObject grammarFile;
-	static MObject outputMesh;
-
-//protected:
-//	MObject createMesh(const MTime& time, MObject& outData, MStatus& stat);
-};
+MStatus returnStatus;
 
 // This initializes the node’s identifier to a unique tag
 MTypeId LSystemNode::id (0x0); 
