@@ -20,8 +20,8 @@ public:
 	static MObject grammarFile;
 	static MObject outputMesh;
 
-//protected:
-//	MObject createMesh(const MTime& time, MObject& outData, MStatus& stat);
+protected:
+	MObject createMesh(const MTime& time, const double& angle, const double& stepSize, const MString& grammar, MObject& outData, MStatus& stat);
 };
 
 

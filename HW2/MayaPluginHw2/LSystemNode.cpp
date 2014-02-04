@@ -2,6 +2,7 @@
 #define MNoPluginEntry
 
 #include "LSystemNode.h"
+#include "cylinder.h"
 
 #include <maya/MFnPlugin.h>
 #include <maya/MTime.h>
@@ -129,7 +130,56 @@ MStatus LSystemNode::initialize()
 	return MS::kSuccess;
 }
 
+// Called whenver an attribute, such as time, changes, and recomputes the output mesh
 MStatus LSystemNode::compute(const MPlug& plug, MDataBlock& data)
 {
+	MStatus returnStatus;
+
+	if (plug == outputMesh)
+	{
+		// Get time
+		MDataHandle timeData = data.inputValue(time, &returnStatus);
+		McheckErr(returnStatus, "ERROR getting time data handle\n");
+		MTime timeValue = timeData.asTime();
+
+		// Get angle
+		MDataHandle angleData = data.inputValue(angle, &returnStatus);
+		McheckErr(returnStatus, "ERROR getting angle data handle\n");
+		double angleValue = angleData.asDouble();
+
+		// Get step size
+		MDataHandle stepSizeData = data.inputValue(stepSize, &returnStatus);
+		McheckErr(returnStatus, "ERROR getting angle data handle\n");
+		double stepSizeValue = stepSizeData.asDouble();
+
+		// Get grammar file
+		MDataHandle grammarFileData = data.inputValue(grammarFile, &returnStatus);
+		McheckErr(returnStatus, "ERROR getting grammar file data handle\n");
+		MString grammarValue = grammarFileData.asString();
+
+		// Get output object
+		MDataHandle outputHandle = data.outputValue(outputMesh, &returnStatus);
+		McheckErr(returnStatus, "ERROR getting polygon data handle\n");
+
+		MFnMeshData dataCreator;
+		MObject newOutputData = dataCreator.create(&returnStatus);
+		McheckErr(returnStatus, "ERROR creating outputData");
+
+		createMesh(timeValue, angleValue, stepSizeValue, grammarValue, newOutputData, returnStatus);
+		McheckErr(returnStatus, "ERROR creating new mesh");
+
+		outputHandle.set(newOutputData);
+		data.setClean(plug);
+	}
+	else
+	{
+		return MS::kUnknownParameter;
+	}
+
 	return MS::kSuccess;
+}
+
+MObject LSystemNode::createMesh(const MTime& time, const double& angle, const double& stepSize, const MString& grammar, MObject& outData, MStatus& stat)
+{
+	return MObject::kNullObj;
 }
