@@ -185,9 +185,14 @@ MObject LSystemNode::createMesh(const MTime& time, const double& angle, const do
 	int frame = (int)time.as(MTime::kFilm);
 	MFnMesh meshFS;
 
+	MObject pluginObj = MFnPlugin::findPlugin("LSystem");
+	MFnPlugin plugin(pluginObj);
+	MString filePath = plugin.loadPath();
+	MString grammarPath = filePath + "/" + grammar;
+
 	// Run the included L-System implementation
 	LSystem system;
-	system.loadProgram(grammar.asChar());
+	system.loadProgram(grammarPath.asChar());
 	system.setDefaultAngle(angle);
 	system.setDefaultStep(stepSize);
 	std::vector<LSystem::Branch> branches;
@@ -199,14 +204,6 @@ MObject LSystemNode::createMesh(const MTime& time, const double& angle, const do
 	}
 
 	// Draw the branches from the final iteration
-
-	// Draw first cylinder
-	//vec3 start = branches.at(0).first;
-	//vec3 end = branches.at(0).second;
-	//MPoint mStart (start[0], start[2], start[1]);
-	//MPoint mEnd (end[0], end[2], end[1]);
-	//CylinderMesh cylinder(mStart, mEnd);
-
 	MIntArray faceCounts;
 	MIntArray faceConnects;
 	MPointArray points;

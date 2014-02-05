@@ -31,6 +31,9 @@ MStatus initializePlugin( MObject obj )
         return status;
     }
 
+	// Set name
+	plugin.setName("LSystem");
+
 	// Load UI from MEL file
 	MGlobal::executeCommand("source \"" + plugin.loadPath() + "/ui.mel\"");
 	status = plugin.registerUI("createLSystemUI", "deleteLSystemUI");
