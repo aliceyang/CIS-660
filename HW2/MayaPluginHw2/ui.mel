@@ -34,8 +34,21 @@ global proc createLSystemUI()
         menu -label "LSystem" LSystemMenu;
             menuItem -label "Call LSystem Command" -command displayLSystemDialog;
             menuItem -divider true;
-            menuItem -label "Create LSystem Node" -command sphere;      
+            menuItem -label "Create LSystem Node" -command createLSystemNode;      
     }
+}
+
+//------------------------------------------------------------
+// Creates an LSystem Node
+//------------------------------------------------------------
+global proc createLSystemNode()
+{
+    createNode transform -n LSystem1;
+    createNode mesh -n LSystemShape1 -p LSystem1;
+    sets -add initialShadingGroup LSystemShape1;
+    createNode LSystemNode -n LSystemNode1;
+    connectAttr time1.outTime LSystemNode1.time;
+    connectAttr LSystemNode1.outputMesh LSystemShape1.inMesh;
 }
 
 //------------------------------------------------------------

@@ -3,6 +3,7 @@
 
 #include "LSystemNode.h"
 #include "cylinder.h"
+#include "LSystem.h"
 
 #include <maya/MFnPlugin.h>
 #include <maya/MTime.h>
@@ -181,5 +182,49 @@ MStatus LSystemNode::compute(const MPlug& plug, MDataBlock& data)
 
 MObject LSystemNode::createMesh(const MTime& time, const double& angle, const double& stepSize, const MString& grammar, MObject& outData, MStatus& stat)
 {
-	return MObject::kNullObj;
+	int frame = (int)time.as(MTime::kFilm);
+	MFnMesh meshFS;
+
+	// Run the included L-System implementation
+	LSystem system;
+	system.loadProgram(grammar.asChar());
+	system.setDefaultAngle(angle);
+	system.setDefaultStep(stepSize);
+	std::vector<LSystem::Branch> branches;
+
+	for (int i = 0; i < frame; i++)
+	{
+		std::string insn = system.getIteration(i);
+		system.process(i, branches);
+	}
+
+	// Draw the branches from the final iteration
+
+	// Draw first cylinder
+	//vec3 start = branches.at(0).first;
+	//vec3 end = branches.at(0).second;
+	//MPoint mStart (start[0], start[2], start[1]);
+	//MPoint mEnd (end[0], end[2], end[1]);
+	//CylinderMesh cylinder(mStart, mEnd);
+
+	MIntArray faceCounts;
+	MIntArray faceConnects;
+	MPointArray points;
+
+	for (int j = 0; j < branches.size(); j++)
+	{
+		vec3 start = branches.at(j).first;
+		vec3 end = branches.at(j).second;
+		MPoint mStart (start[0], start[2], start[1]);
+		MPoint mEnd (end[0], end[2], end[1]);
+		CylinderMesh cylinder(mStart, mEnd);
+		cylinder.appendToMesh(points,faceCounts,faceConnects);
+	}
+
+	// Create the output mesh
+	MObject newMesh = meshFS.create(points.length(), faceCounts.length(),
+									points, faceCounts, faceConnects,
+									outData, &stat);
+
+	return newMesh;
 }
