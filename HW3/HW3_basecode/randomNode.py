@@ -54,13 +54,48 @@ class randomNode(OpenMayaMPx.MPxNode):
 
     # compute
     def compute(self,plug,data):
-        # TODO:: create the main functionality of the node. Your node should 
+        # IN PROGRESS:: create the main functionality of the node. Your node should 
         #         take in three floats for max position (X,Y,Z), three floats 
         #         for min position (X,Y,Z), and the number of random points to
         #         be generated. Your node should output an MFnArrayAttrsData 
         #         object containing the random points. Consult the homework
         #         sheet for how to deal with creating the MFnArrayAttrsData. 
-
+        
+        if plug == randomNode.outPoints:
+        
+            print "Compute!\n"
+            
+            # Retrieve input values from their data handles
+            inNumPointsData = data.inputValue(randomNode.inNumPoints)
+            inNumPointsValue = inNumPointsData.asFloat()
+            
+            minVectorData = data.inputValue(randomNode.minVector)
+            minVectorData = minVectorData.asFloat3()
+            
+            maxVectorData = data.inputValue(randomNode.maxVector)
+            maxVectorData = maxVectorData.asFloat3()
+            
+            # Output value
+            pointsData = data.outputValue(randomNode.outPoints) #the MDataHandle
+            pointsAAD = OpenMaya.MFnArrayAttrsData() #the MFnArrayAttrsData
+            pointsObject = pointsAAD.create() #the MObject
+            
+            # Create the vectors for position and id
+            positionArray = pointsAAD.vectorArray("position")
+            idArray = pointsAAD.doubleArray("id")
+            
+            # TODO:: Loop to fill the arrays: 
+            for num in range(0, inNumPointsValue):
+                startx = random.uniform(minVectorData[0], maxVectorData[0])
+                starty = random.uniform(minVectorData[1], maxVectorData[1])
+                startz = random.uniform(minVectorData[2], maxVectorData[2])
+                
+                positionArray.append(OpenMaya.MVector(startx, starty, startz))
+                idArray.append(num) 
+            
+            # Finally set the output data handle 
+            pointsData.setMObject(pointsObject) 
+            
         data.setClean(plug)
     
 # initializer
