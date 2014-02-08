@@ -46,7 +46,7 @@ class randomNode(OpenMayaMPx.MPxNode):
     maxZ = OpenMaya.MObject()
     maxVector = OpenMaya.MObject()
     
-    output = OpenMaya.MObject()
+    outPoints = OpenMaya.MObject()
         
     # constructor
     def __init__(self):
@@ -68,39 +68,59 @@ def nodeInitializer():
     tAttr = OpenMaya.MFnTypedAttribute()
     nAttr = OpenMaya.MFnNumericAttribute()
 
-    # IN PROGRESS:: initialize the input and output attributes. Be sure to use the 
+    # DONE:: initialize the input and output attributes. Be sure to use the 
     #         MAKE_INPUT and MAKE_OUTPUT functions.
     
     # Input attributes
     randomNode.inNumPoints = nAttr.create("numPoints", "n", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(nAttr)
     
     randomNode.minX = nAttr.create("minX", "miX", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.minX)
+    MAKE_INPUT(nAttr)
     randomNode.minY = nAttr.create("minY", "miY", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.minY)
+    MAKE_INPUT(nAttr)
     randomNode.minZ = nAttr.create("minZ", "miZ", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.minZ)
+    MAKE_INPUT(nAttr)
     randomNode.minVector = nAttr.create("minVector", "miV", randomNode.minX, randomNode.minY, randomNode.minZ)
-    MAKE_INPUT(randomNode.minVector)
+    MAKE_INPUT(nAttr)
         
     randomNode.maxX = nAttr.create("maxX", "maX", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.maxX)
+    MAKE_INPUT(nAttr)
     randomNode.maxY = nAttr.create("maxY", "maY", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.maxY)
+    MAKE_INPUT(nAttr)
     randomNode.maxZ = nAttr.create("maxZ", "maZ", OpenMaya.MFnNumericData.kFloat, 0.0)
-    MAKE_INPUT(randomNode.maxZ)
+    MAKE_INPUT(nAttr)
     randomNode.maxVector = nAttr.create("maxVector", "maV", randomNode.maxX, randomNode.maxY, randomNode.maxZ)
-    MAKE_INPUT(randomNode.maxVector)
+    MAKE_INPUT(nAttr)
     
     # Output attributes
+    randomNode.outPoints = tAttr.create("outPoints", "op", OpenMaya.MFnArrayAttrsData.kDynArrayAttrs)
+    MAKE_OUTPUT(tAttr)
     
-    # Attribute affects
-    
-
     try:
-        # TODO:: add the attributes to the node and set up the
+        # DONE:: add the attributes to the node and set up the
         #         attributeAffects (addAttribute, and attributeAffects)
         print "Initialization!\n"
+        
+        # Add attributes
+        randomNode.addAttribute(randomNode.inNumPoints)
+        
+        #randomNode.addAttribute(randomNode.minX)
+        #randomNode.addAttribute(randomNode.minY)
+        #randomNode.addAttribute(randomNode.minZ)
+        randomNode.addAttribute(randomNode.minVector)
+        
+        #randomNode.addAttribute(randomNode.maxX)
+        #randomNode.addAttribute(randomNode.maxY)
+        #randomNode.addAttribute(randomNode.maxZ)
+        randomNode.addAttribute(randomNode.maxVector)
+        
+        randomNode.addAttribute(randomNode.outPoints)    
+        
+        # Set attributeAffects
+        randomNode.attributeAffects(randomNode.inNumPoints, randomNode.outPoints)
+        randomNode.attributeAffects(randomNode.minVector, randomNode.outPoints)
+        randomNode.attributeAffects(randomNode.maxVector, randomNode.outPoints)   
 
     except:
         sys.stderr.write( ("Failed to create attributes of %s node\n", kPluginNodeTypeName) )
