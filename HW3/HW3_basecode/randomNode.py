@@ -31,7 +31,7 @@ randomNodeId = OpenMaya.MTypeId(0x8704)
 # Node definition
 class randomNode(OpenMayaMPx.MPxNode):
     # Declare class variables:
-    # TODO:: declare the input and output class variables
+    # DONE:: declare the input and output class variables
     #         i.e. inNumPoints = OpenMaya.MObject()
     
     inNumPoints = OpenMaya.MObject()
@@ -84,7 +84,7 @@ class randomNode(OpenMayaMPx.MPxNode):
             positionArray = pointsAAD.vectorArray("position")
             idArray = pointsAAD.doubleArray("id")
             
-            # TODO:: Loop to fill the arrays: 
+            # DONE:: Loop to fill the arrays: 
             for num in range(0, inNumPointsValue):
                 startx = random.uniform(minVectorData[0], maxVectorData[0])
                 starty = random.uniform(minVectorData[1], maxVectorData[1])
@@ -139,17 +139,8 @@ def nodeInitializer():
         
         # Add attributes
         randomNode.addAttribute(randomNode.inNumPoints)
-        
-        #randomNode.addAttribute(randomNode.minX)
-        #randomNode.addAttribute(randomNode.minY)
-        #randomNode.addAttribute(randomNode.minZ)
         randomNode.addAttribute(randomNode.minVector)
-        
-        #randomNode.addAttribute(randomNode.maxX)
-        #randomNode.addAttribute(randomNode.maxY)
-        #randomNode.addAttribute(randomNode.maxZ)
         randomNode.addAttribute(randomNode.maxVector)
-        
         randomNode.addAttribute(randomNode.outPoints)    
         
         # Set attributeAffects
