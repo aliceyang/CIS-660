@@ -34,6 +34,20 @@ class randomNode(OpenMayaMPx.MPxNode):
     # TODO:: declare the input and output class variables
     #         i.e. inNumPoints = OpenMaya.MObject()
     
+    inNumPoints = OpenMaya.MObject()
+    
+    minX = OpenMaya.MObject()
+    minY = OpenMaya.MObject()
+    minZ = OpenMaya.MObject()
+    minVector = OpenMaya.MObject()
+    
+    maxX = OpenMaya.MObject()
+    maxY = OpenMaya.MObject()
+    maxZ = OpenMaya.MObject()
+    maxVector = OpenMaya.MObject()
+    
+    output = OpenMaya.MObject()
+        
     # constructor
     def __init__(self):
         OpenMayaMPx.MPxNode.__init__(self)
@@ -54,9 +68,34 @@ def nodeInitializer():
     tAttr = OpenMaya.MFnTypedAttribute()
     nAttr = OpenMaya.MFnNumericAttribute()
 
-    # TODO:: initialize the input and output attributes. Be sure to use the 
+    # IN PROGRESS:: initialize the input and output attributes. Be sure to use the 
     #         MAKE_INPUT and MAKE_OUTPUT functions.
-
+    
+    # Input attributes
+    randomNode.inNumPoints = nAttr.create("numPoints", "n", OpenMaya.MFnNumericData.kFloat, 0.0)
+    
+    randomNode.minX = nAttr.create("minX", "miX", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.minX)
+    randomNode.minY = nAttr.create("minY", "miY", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.minY)
+    randomNode.minZ = nAttr.create("minZ", "miZ", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.minZ)
+    randomNode.minVector = nAttr.create("minVector", "miV", randomNode.minX, randomNode.minY, randomNode.minZ)
+    MAKE_INPUT(randomNode.minVector)
+        
+    randomNode.maxX = nAttr.create("maxX", "maX", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.maxX)
+    randomNode.maxY = nAttr.create("maxY", "maY", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.maxY)
+    randomNode.maxZ = nAttr.create("maxZ", "maZ", OpenMaya.MFnNumericData.kFloat, 0.0)
+    MAKE_INPUT(randomNode.maxZ)
+    randomNode.maxVector = nAttr.create("maxVector", "maV", randomNode.maxX, randomNode.maxY, randomNode.maxZ)
+    MAKE_INPUT(randomNode.maxVector)
+    
+    # Output attributes
+    
+    # Attribute affects
+    
 
     try:
         # TODO:: add the attributes to the node and set up the
