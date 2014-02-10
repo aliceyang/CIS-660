@@ -33,7 +33,7 @@ LSystemInstanceNodeId = OpenMaya.MTypeId(0x8705)
 # Node definition
 class LSystemInstanceNode(OpenMayaMPx.MPxNode):
     # Declare class variables:
-    # TODO:: declare the input and output class variables
+    # DONE:: declare the input and output class variables
     #         i.e. inNumPoints = OpenMaya.MObject()
     
     angle = OpenMaya.MObject()
@@ -52,6 +52,54 @@ class LSystemInstanceNode(OpenMayaMPx.MPxNode):
     # compute
     def compute(self,plug,data):
         # IN PROGRESS:: create the main functionality of the node.
+        if plug == LSystemInstanceNode.outputBranches or plug == LSystemInstanceNode.outputFlowers:
+        
+            print "Compute!\n"
+            
+            # Create a new LSystem object
+            system = LSystem.LSystem()
+            
+            # Retrieve input values from their data handles
+            angleData = data.inputValue(LSystemInstanceNode.angle)
+            angleValue = angleData.asDouble()
+            
+            stepSizeData = data.inputValue(LSystemInstanceNode.stepSize)
+            stepSizeValue = stepSizeData.asDouble()
+            
+            grammarFileData = data.inputValue(LSystemInstanceNode.grammarFile)
+            grammarFileValue = grammarFileData.asString()
+            
+            iterationsData = data.inputValue(LSystemInstanceNode.iterations)
+            iterationsValue = iterationsData.asDouble()
+            
+            # Output values
+            outBranchesData = data.outputValue(LSystemInstanceNode.outputBranches) #the MDataHandle
+            outBranchesAAD = OpenMaya.MFnArrayAttrsData() #the MFnArrayAttrsData
+            outBranchesObject = outBranchesAAD.create() #the MObject
+            
+            outFlowersData = data.outputValue(LSystemInstanceNode.outputFlowers) #the MDataHandle
+            outFlowersAAD = OpenMaya.MFnArrayAttrsData() #the MFnArrayAttrsData
+            outFlowersObject = outFlowersAAD.create() #the MObject
+            
+            # Create the vectors for position, id, scale, and aimDirection (branch end - start) for Branches
+            positionArrayBranch = outBranchesAAD.vectorArray("position")
+            idArrayBranch = outBranchesAAD.doubleArray("id")
+            scaleArrayBranch = outBranchesAAD.vectorArray("scale")
+            aimDirArrayBranch = outBranchesAAD.vectorArray("aimDirection")
+            
+            # Create the vectors for position, id, scale, and aimDirection (branch end - start) for Flowers
+            positionArrayFlower = outFlowersAAD.vectorArray("position")
+            idArrayFlower = outFlowersAAD.doubleArray("id")
+            scaleArrayFlower = outFlowersAAD.vectorArray("scale")
+            aimDirArrayFlower = outFlowersAAD.vectorArray("aimDirection")
+            
+            # TODO:: Run the LSystem and set the positions/ids/ etc
+            ############################################################
+            
+            # Finally set the output data handles
+            outBranchesData.setMObject(outBranchesObject)
+            outFlowersData.setMObject(outFlowersObject)
+
         data.setClean(plug)
 
 # initializer
