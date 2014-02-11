@@ -237,6 +237,7 @@ void LSystem::processPy(unsigned int n,
 		newBranch.push_back(end[2]);
 
 		branches.push_back(newBranch);
+		newBranch.clear();
 	}
 
 	// Convert each flower in preFlowers from std::pair<vec3, string> to std::vector<float>
@@ -249,6 +250,7 @@ void LSystem::processPy(unsigned int n,
 		newFlower.push_back(pos[2]);
 
 		flowers.push_back(newFlower);
+		newFlower.clear();
 	}
 }
 
