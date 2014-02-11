@@ -114,20 +114,31 @@ class LSystemInstanceNode(OpenMayaMPx.MPxNode):
             print "idx: " + str(idx)
             print "branch: "
             print branch 
-            startPos = OpenMaya.MVector(branch[0], branch[1], branch[2])
-            endPos = OpenMaya.MVector(branch[3], branch[4], branch[5])
+            #switching y & z values because of Maya's vertical y-axis positioning
+            startPos = OpenMaya.MVector(branch[0], branch[2], branch[1]) 
+            endPos = OpenMaya.MVector(branch[3], branch[5], branch[4])
             dir = endPos - startPos 
             
             positionArrayBranch.append(startPos)
             idArrayBranch.append(idx)
-            scaleArrayBranch.append(OpenMaya.MVector(2,2,2))
+            scaleArrayBranch.append(OpenMaya.MVector(1,1,1))
             aimDirArrayBranch.append(dir)
             print "======== BRANCH END ========\n\n"
                     
         
         # Loop through flowers to fill the arrays
-        for flower in flowers:
-            print flower      
+        for idx, flower in enumerate(flowers):
+            print "=====FLOWER START===="
+            print "idx: " + str(idx)
+            print "flower:"
+            print flower
+            #switching y & z values because of Maya's vertical y-axis positioning
+            pos = OpenMaya.MVector(flower[0], flower[2], flower[1])
+            
+            positionArrayFlower.append(pos)
+            idArrayFlower.append(idx)
+            scaleArrayFlower.append(OpenMaya.MVector(1,1,1))
+            aimDirArrayFlower.append(OpenMaya.MVector(1,1,1))
         
         # Finally set the output data handles
         outBranchesData.setMObject(outBranchesObject)
