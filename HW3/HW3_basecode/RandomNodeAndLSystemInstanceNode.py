@@ -10,6 +10,7 @@ import maya.OpenMaya as OpenMaya
 import maya.OpenMayaAnim as OpenMayaAnim
 import maya.OpenMayaMPx as OpenMayaMPx
 import maya.cmds as cmds
+import maya.mel as mel
 
 # Useful functions for declaring attributes as inputs or outputs.
 def MAKE_INPUT(attr):
@@ -189,7 +190,7 @@ kPluginNodeTypeName = "LSystemInstanceNode"
 
 # Give the node a unique ID. Make sure this ID is different from all of your
 # other nodes!
-LSystemInstanceNodeId = OpenMaya.MTypeId(0x8705)
+LSystemInstanceNodeId = OpenMaya.MTypeId(0x0)
 
 # Node definition
 class LSystemInstanceNode(OpenMayaMPx.MPxNode):
@@ -271,28 +272,19 @@ class LSystemInstanceNode(OpenMayaMPx.MPxNode):
             
         # Loop through branches to fill the arrays     
         for idx,branch in enumerate(branches):
-            print "===== BRANCH START ===="
-            print "idx: " + str(idx)
-            print "branch: "
-            print branch 
             #switching y & z values because of Maya's vertical y-axis positioning
             startPos = OpenMaya.MVector(branch[0], branch[2], branch[1]) 
             endPos = OpenMaya.MVector(branch[3], branch[5], branch[4])
             dir = endPos - startPos 
             
-            positionArrayBranch.append(startPos)
+            positionArrayBranch.append(endPos)
             idArrayBranch.append(idx)
             scaleArrayBranch.append(OpenMaya.MVector(1,1,1))
             aimDirArrayBranch.append(dir)
-            print "======== BRANCH END ========\n\n"
                     
         
         # Loop through flowers to fill the arrays
         for idx, flower in enumerate(flowers):
-            print "=====FLOWER START===="
-            print "idx: " + str(idx)
-            print "flower:"
-            print flower
             #switching y & z values because of Maya's vertical y-axis positioning
             pos = OpenMaya.MVector(flower[0], flower[2], flower[1])
             
@@ -385,7 +377,10 @@ def initializePlugin(mobject):
         mplugin.registerNode( kPluginNodeTypeName, LSystemInstanceNodeId, nodeCreator, nodeInitializer )
     except:
         sys.stderr.write( "Failed to register node: %s\n" % kPluginNodeTypeName )
-
+        
+    # Register the UI
+    OpenMaya.MGlobal.executeCommand("source \"" + mplugin.loadPath() + "/ui.mel\"")
+    mplugin.registerUI(createPyUI, deletePyUI)
 
 # uninitialize the script plug-in
 def uninitializePlugin(mobject):
@@ -401,5 +396,11 @@ def uninitializePlugin(mobject):
         mplugin.deregisterNode( LSystemInstanceNodeId )
     except:
         sys.stderr.write( "Failed to unregister node: %s\n" % kPluginNodeTypeName )
+        
 
 
+def createPyUI():
+    OpenMaya.MGlobal.executeCommand("createLSystemUI")
+    
+def deletePyUI():
+    OpenMaya.MGlobal.executeCommand("deleteLSystemUI") 

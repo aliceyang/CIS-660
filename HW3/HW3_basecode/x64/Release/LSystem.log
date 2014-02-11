@@ -1,0 +1,109 @@
+﻿Build started 2/10/2014 8:47:02 PM.
+     1>Project "C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\LSystem.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "x64\Release\LSystem.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       CustomBuild:
+         Performing Custom Build Tools
+     1>vec.h(89): warning 362: operator= ignored
+     1>vec.h(94): warning 389: operator[] ignored (consider using %extend)
+     1>vec.h(95): warning 389: operator[] ignored (consider using %extend)
+     1>vec.h(137): warning 362: operator= ignored
+     1>vec.h(142): warning 389: operator[] ignored (consider using %extend)
+     1>vec.h(143): warning 389: operator[] ignored (consider using %extend)
+     1>vec.h(193): warning 362: operator= ignored
+     1>vec.h(194): warning 389: operator[] ignored (consider using %extend)
+     1>vec.h(195): warning 389: operator[] ignored (consider using %extend)
+     1>matrix.h(229): warning 362: operator= ignored
+     1>matrix.h(708): warning 361: operator! ignored
+     1>LSystem.i(14): warning 453: Can't apply (std::vector< std::vector< float > > &INOUT). No typemaps are defined.
+     1>vec.h(103): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(104): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+     1>vec.h(105): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(106): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(107): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(108): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(109): warning 503: Can't wrap 'operator /' unless renamed to a valid identifier.
+     1>vec.h(110): warning 503: Can't wrap 'operator ^' unless renamed to a valid identifier.
+     1>vec.h(111): warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+     1>vec.h(112): warning 503: Can't wrap 'operator !=' unless renamed to a valid identifier.
+     1>vec.h(153): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(154): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+     1>vec.h(155): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(156): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(157): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(158): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(159): warning 503: Can't wrap 'operator /' unless renamed to a valid identifier.
+     1>vec.h(160): warning 503: Can't wrap 'operator ^' unless renamed to a valid identifier.
+     1>vec.h(161): warning 503: Can't wrap 'operator ==' unless renamed to a valid identifier.
+     1>vec.h(162): warning 503: Can't wrap 'operator !=' unless renamed to a valid identifier.
+     1>vec.h(179): warning 503: Can't wrap 'operator <<' unless renamed to a valid identifier.
+     1>vec.h(199): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(200): warning 503: Can't wrap 'operator +' unless renamed to a valid identifier.
+     1>vec.h(201): warning 503: Can't wrap 'operator -' unless renamed to a valid identifier.
+     1>vec.h(202): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(203): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+     1>vec.h(204): warning 503: Can't wrap 'operator *' unless renamed to a valid identifier.
+       ClCompile:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /IC:\Python26\include /Zi /nologo /W3 /WX- /O2 /D WIN32 /D NDEBUG /D _WINDOWS /D _USRDLL /D LSYSTEM_EXPORTS /D _WINDLL /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Release\\" /Fd"x64\Release\vc100.pdb" /Gd /TP /errorReport:prompt LSystem.cpp LSystem_wrap.cxx
+         LSystem.cpp
+     1>LSystem.cpp(52): warning C4267: 'initializing' : conversion from 'size_t' to 'unsigned int', possible loss of data
+         LSystem_wrap.cxx
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(236): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+                 c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(316) : see reference to class template instantiation 'math::matrix<T>' being compiled
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(237): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(244): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(245): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(246): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(249): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(260): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(261): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(262): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(263): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(264): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(266): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(447): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(457): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(519): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(532): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(556): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(589): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(614): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(623): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(649): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(666): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(673): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(680): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(704): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(712): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(759): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(888): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(941): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(975): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(990): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(1165): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+     1>c:\users\alice\documents\upenn\cis_660\hw3\hw3_basecode\matrix.h(1173): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+         Generating Code...
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         c:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.pyd" /INCREMENTAL /NOLOGO /LIBPATH:C:\Python26\libs kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Release\_LSystem.pyd.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.lib" /MACHINE:X64 /DLL x64\Release\_LSystem.pyd.embed.manifest.res
+         x64\Release\LSystem.obj
+         x64\Release\LSystem_wrap.obj
+         x64\Release\vec.obj
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/OPT:ICF' specification
+            Creating library C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.lib and object C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.exp
+         LSystem.vcxproj -> C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.pyd
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"x64\Release\_LSystem.pyd.embed.manifest" /manifest x64\Release\_LSystem.pyd.intermediate.manifest
+         All outputs are up-to-date.
+       LinkEmbedManifest:
+         All outputs are up-to-date.
+         LSystem.vcxproj -> C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\bin\_LSystem.pyd
+       FinalizeBuildStatus:
+         Deleting file "x64\Release\LSystem.unsuccessfulbuild".
+         Touching "x64\Release\LSystem.lastbuildstate".
+     1>Done Building Project "C:\Users\Alice\Documents\UPenn\CIS_660\HW3\HW3_basecode\LSystem.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.24

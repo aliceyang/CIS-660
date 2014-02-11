@@ -1,0 +1,45 @@
+// Alice Yang
+// CIS 660 Homework 
+// This is the GUI code for the RandomNode and LSystemInstancerNode
+
+//------------------------------------------------------------
+// Global variables to keep track of LSystemCmd input values
+//------------------------------------------------------------
+
+
+//------------------------------------------------------------
+// Creates the main window LSystem menu
+//------------------------------------------------------------
+global proc createLSystemUI()
+{
+    print "createLSystemUI";
+    
+    if (`menu -exists LSystemMenu`)
+        deleteUI LSystemMenu;
+    if (!`menu -exists LSystemMenu`)
+    {
+        global string $gMainWindow;
+        setParent $gMainWindow;
+        menu -label "LSystem" LSystemMenu;
+            menuItem -label "Create randomNode Network" -command createRandomNodeNetwork;
+            menuItem -divider true;
+    }
+}
+
+global proc createRandomNodeNetwork()
+{
+    print "createRandomNodeNetwork";
+    polySphere;
+    instancer;
+    createNode randomNode;
+    connectAttr pSphere1.matrix instancer1.inputHierarchy[0]; 
+    connectAttr randomNode1.outPoints instancer1.inputPoints; 
+}
+
+//------------------------------------------------------------
+// Deletes the GUI dialog
+//------------------------------------------------------------
+global proc deleteLSystemUI()
+{
+    print "deleteLSystemUI";
+}
