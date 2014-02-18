@@ -53,10 +53,10 @@ newSopOperator(OP_OperatorTable *table)
 //PUT YOUR CODE HERE
 //You need to declare your parameters here
 //Example to declare a variable for angle you can do like this :
-//static PRM_Name		angleName("angle", "Angle");
-
-
-
+static PRM_Name		angleName("angle", "Angle");
+static PRM_Name		stepSize("stepSize", "Step Size");
+static PRM_Name		iterations("iterations", "Iterations");
+static PRM_Name		grammarFile("grammarFile", "Grammar File");
 
 
 
@@ -71,14 +71,10 @@ newSopOperator(OP_OperatorTable *table)
 // PUT YOUR CODE HERE
 // You need to setup the initial/default values for your parameters here
 // For example : If you are declaring the inital value for the angle parameter
-// static PRM_Default angleDefault(30.0);	
-
-
-
-
-
-
-
+static PRM_Default angleDefault(30.0);	
+static PRM_Default stepSizeDefault(2.0);
+static PRM_Default iterationsDefault(2.0);
+static PRM_Default grammarFileDefault(0, "");
 
 
 
@@ -90,13 +86,10 @@ SOP_Lsystem::myTemplateList[] = {
 // PUT YOUR CODE HERE
 // You now need to fill this template with your parameter name and their default value
 // EXAMPLE : For the angle parameter this is how you should add into the template
-// PRM_Template(PRM_FLT,	PRM_Template::PRM_EXPORT_MIN, 1, &angleName, &angleDefault, 0),
-// Similarly add all the other parameters in the template format here
-
-
-
-
-
+PRM_Template(PRM_FLT,	PRM_Template::PRM_EXPORT_MIN, 1, &angleName, &angleDefault, 0),
+PRM_Template(PRM_FLT,	PRM_Template::PRM_EXPORT_MIN, 1, &stepSize, &stepSizeDefault, 0),
+PRM_Template(PRM_FLT,	PRM_Template::PRM_EXPORT_MIN, 1, &iterations, &iterationsDefault, 0),
+PRM_Template(PRM_FILE,	PRM_Template::PRM_EXPORT_MIN, 1, &grammarFile, &grammarFileDefault, 0),
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -173,17 +166,27 @@ SOP_Lsystem::cookMySop(OP_Context &context)
 	//    float angle;
 	//    angle = ANGLE(now)       
     //    NOTE : ANGLE is a function that you need to use and it is declared in the header file to update your values instantly while cooking 
+	
+	float angle;
+	angle = ANGLE(now);
+
+	float stepSize;
+	stepSize = STEPSIZE(now);
+
+	float iterations;
+	iterations = ITERATIONS(now);
+
+	UT_String grammarFileUT;
+	evalString(grammarFileUT, "grammarFile", 0, now);
+	std::string grammarFile;
+	grammarFile = grammarFileUT.toStdString();
+
+	cout << "angle " << angle << endl;
+	cout << "stepSize "<< stepSize << endl;
+	cout << "iterations " << iterations << endl;
+	cout << "grammar " << grammarFile << "\n" << endl;
+
 	LSystem myplant;
-
-
-
-
-
-
-
-
-
-
 
 
 	///////////////////////////////////////////////////////////////////////////
@@ -195,8 +198,9 @@ SOP_Lsystem::cookMySop(OP_Context &context)
     // myplant.setDefaultAngle(30.0f);
     // myplant.setDefaultStep(1.0f);
 
-
-
+	myplant.setDefaultAngle(angle);
+	myplant.setDefaultStep(stepSize);
+	myplant.loadProgram(grammarFile);
 
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -205,14 +209,12 @@ SOP_Lsystem::cookMySop(OP_Context &context)
 	// You the need call the below function for all the genrations ,so that the end points points will be
 	// stored in the branches vector , you need to declare them first
 
-	//for (int i = 0; i < generations ; i++)
-    //{
-	//	 myplant.process(i, branches);
-    //}
+	std::vector<LSystem::Branch> branches;
 
-
-
-
+	for (int i = 0; i < iterations ; i++)
+    {
+		 myplant.process(i, branches);
+    }
 
 	///////////////////////////////////////////////////////////////////////////////////
 
@@ -266,6 +268,31 @@ SOP_Lsystem::cookMySop(OP_Context &context)
 		// Also use GEO_Point mypoint = poly->getVertexElement(i).getPt();
 		// To build geometry in Houdini , you need to create a point in Houdini using
 		// GEO_Point and set its position by mypoint->setPos(YOUR_POSITION_VECTOR); 
+
+		for (int j = 0; j < branches.size(); j++)
+		{
+			vec3 start = branches.at(j).first;
+			vec3 end = branches.at(j).second;
+
+			// Switching start[1] and start[2] because y-axis is up in houdini
+			UT_Vector3 posStart;
+			posStart(xcoord) = start[0];
+			posStart(ycoord) = start[2];
+			posStart(zcoord) = start[1];
+
+			UT_Vector3 posEnd;
+			posEnd(xcoord) = end[0];
+			posEnd(ycoord) = end[2];
+			posEnd(zcoord) = end[1];
+
+			poly = GU_PrimPoly::build(gdp, 2, GU_POLY_OPEN);
+
+			mypoint = poly->getVertexElement(0).getPt();
+			mypoint->setPos(posStart); 
+
+			mypoint = poly->getVertexElement(1).getPt();
+			mypoint->setPos(posEnd); 
+		}
 		 
 
 

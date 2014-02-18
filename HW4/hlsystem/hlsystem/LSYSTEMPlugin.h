@@ -59,19 +59,10 @@ private:
 	// Here you need to declare functions which need to be called from the .C file to 
 	// constantly update the cook function, these functions help you get the current value that the node has
 	// Example : To declare a function to fetch angle you need to do it this way 
-	// fpreal  ANGLE(fpreal t)     { return evalFloat("angle", 0, t); }
-
+	fpreal  ANGLE(fpreal t)     { return evalFloat("angle", 0, t); }
+	fpreal  STEPSIZE(fpreal t)     { return evalFloat("stepSize", 0, t); }
+	fpreal  ITERATIONS(fpreal t)     { return evalFloat("iterations", 0, t); }
 	
-
-
-
-
-
-
-
-
-
-
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
